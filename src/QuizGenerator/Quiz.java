@@ -1,4 +1,5 @@
 package QuizGenerator;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -23,6 +24,16 @@ public class Quiz {
     Stage main = new Stage();
     BorderPane screen = new BorderPane();
     Text name = new Text(this.name);
+    screen.setTop(name);
+    Button makeQ = new Button("Create New Question");
+    makeQ.setOnAction(event -> {
+      createNewQuestionScreen the = new createNewQuestionScreen();
+      Question q = the.show();
+    });
+
+  }
+
+  public void makeQuestion() {
 
   }
 
