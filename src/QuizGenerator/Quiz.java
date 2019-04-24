@@ -25,18 +25,36 @@ public class Quiz {
     BorderPane screen = new BorderPane();
     Text name = new Text(this.name);
     screen.setTop(name);
-    Button makeQ = new Button("Create New Question");
-    makeQ.setOnAction(event -> {
-      createNewQuestionScreen the = new createNewQuestionScreen();
-      Question q = the.show();
-    });
+    boolean question = true;
+    while(question) {
+      Button makeQ = new Button("Create New Question");
+      makeQ.setOnAction(event -> {
+        createNewQuestionScreen the = new createNewQuestionScreen();
+        Question q = the.show();
+        makeQuiz(q);
+        length++;
+      });
+      Button stopQuiz = new Button("Done Adding Questions");
+      stopQuiz.setOnAction(event -> {
+        changeQuestionToFalse(question);
+        addQuiz();
+      });
+      screen.setRight(makeQ);
+      screen.setLeft(stopQuiz);
+    }
 
   }
-
-  public void makeQuestion() {
+  public void changeQuestionToFalse(boolean question){
+    question = false;
+  }
+  public void makeQuiz(Question question) {
+    questions.add(question);
+  }
+  //adds Quiz to the hashMap
+  //key for hashmap is string name of quiz, value is the linkedlist
+  public void addQuiz(){
 
   }
-
   public void getAllQuestions() {
     correct = 0;
     Question[] all = (Question[])questions.toArray();
