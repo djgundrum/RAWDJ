@@ -28,7 +28,7 @@ public class Quiz {
     Button makeQ = new Button("Create New Question");
     makeQ.setOnAction(event -> {
       createNewQuestionScreen the = new createNewQuestionScreen();
-      Question q = the.show();
+      //Question q = the.show();
     });
 
   }
