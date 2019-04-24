@@ -38,17 +38,23 @@ public class Question {
     Random num = new Random();
     int hor=0;
     int vet=0;
+    boolean switc = true;
     do{
       if(hor ==2){
         hor =0;
         vet =1;
       }
       int rand =num.nextInt(answers.size());
+
       Button add = new Button(answers.get(rand));
+      if(rand==0&&switc){
+        //add.setOnAction(event -> );
+        switc = false;
+      }
       questions.add(add,hor,vet);
       hor++;
       answers.remove(rand);
-    }while(answers.size()!=1);
+    }while(answers.size()!=0);
     screen.setTop(question);
     screen.setBottom(questions);
 
