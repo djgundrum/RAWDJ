@@ -1,5 +1,6 @@
 package QuizGenerator;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -25,8 +26,7 @@ public class Question {
     this.answer3 = a3;
   }
 //quiz to show each question
-  public void show() {
-    Stage main = new Stage();
+  public void show(Stage primaryStage, Scene original) {
     BorderPane screen = new BorderPane();
     Text question = new Text(this.question);
     GridPane questions = new GridPane();
@@ -56,8 +56,9 @@ public class Question {
       answers.remove(rand);
     }while(answers.size()!=0);
     screen.setTop(question);
-    screen.setBottom(questions);
-
+    screen.setCenter(questions);
+    primaryStage.setScene(new Scene(screen, 300, 275));
+    primaryStage.show();
 
   }
 }

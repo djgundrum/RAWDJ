@@ -30,8 +30,8 @@ public class Quiz {
       Button makeQ = new Button("Create New Question");
       makeQ.setOnAction(event -> {
         createNewQuestionScreen the = new createNewQuestionScreen();
-        Question q = the.show();
-        makeQuiz(q);
+        //Question q = the.show();
+        //makeQuiz(q);
         length++;
       });
       Button stopQuiz = new Button("Done Adding Questions");

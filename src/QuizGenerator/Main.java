@@ -3,6 +3,7 @@ package QuizGenerator;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -34,7 +35,7 @@ public class Main extends Application {
   }
 
   public void setHomePage(Stage primaryStage){
-    TextField title = new TextField("CS400 Quiz Generator");
+    Label title = new Label("CS400 Quiz Generator");
     Button addNewQuiz = new Button("Add New Quiz");
 
     screen.setStyle("-fx-background-color: #FA8072;");
@@ -47,6 +48,15 @@ public class Main extends Application {
     quizzes.getItems().add(addNewQuiz);
     primaryStage.setScene(currentScene);
     primaryStage.show();
+
+    Button question = new Button("Question");
+    question.setOnAction(event -> {
+      Question q = new Question("A", "B", "C", "D", "E");
+      q.show(primaryStage, currentScene);
+
+    });
+
+    screen.setBottom(question);
 
 
 
