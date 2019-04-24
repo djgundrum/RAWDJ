@@ -47,7 +47,7 @@ public class Quiz {
   public void makeQuiz(Question question) {
     questions.add(question);
   }
-  //adds Quiz to the hashmap
+  //adds Quiz to the hashMap
   public void addQuiz(){
 
   }
