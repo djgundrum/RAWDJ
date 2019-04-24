@@ -6,49 +6,64 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 
 public class Main extends Application {
 
-  BorderPane border = new BorderPane();
-  Button newQuiz = new Button("New Quiz");
-  VBox titleAndButton= new VBox();
-  ListView<Question> quizzes = new ListView<>();
-  Scene currentScene = new Scene(border, 300, 275);
+  BorderPane screen = new BorderPane();
+  ArrayList<BorderPane> pages= new ArrayList<>();
+  ArrayList<BorderPane> quizPages= new ArrayList<>();
+  Scene currentScene = new Scene(screen, 300, 275);
+
+  ListView<Button> quizzes = new ListView<>();
+
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    border.setStyle("-fx-background-color: #fa8072;");
-    TextField title = new TextField();
-    title.setText("CS400 Quiz Generator");
-    title.setStyle("-fx-background-color: #fa8072;");
+    setHomePage(primaryStage);
+    primaryStage.setScene(currentScene);
+    primaryStage.show();
+  }
+
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  public void setHomePage(Stage primaryStage){
+    TextField title = new TextField("CS400 Quiz Generator");
+    Button addNewQuiz = new Button("Add New Quiz");
+
+    screen.setStyle("-fx-background-color: #FA8072;");
+    quizzes.setStyle("-fx-background-color: #FA8072;");
+    addNewQuiz.setStyle("-fx-background-color: #FA8072;");
+    title.setStyle("-fx-background-color: #FA8072;");
     title.setFont(Font.font(40));
-    border.setCenter(quizzes);
-    titleAndButton.getChildren().add(title);
-    titleAndButton.getChildren().add(newQuiz);
-    border.setTop(titleAndButton);
+    screen.setTop(title);
+    screen.setCenter(quizzes);
+    quizzes.getItems().add(addNewQuiz);
     primaryStage.setScene(currentScene);
     primaryStage.show();
 
 
 
+    addNewQuiz.setOnAction(event -> {
+      Button quiz= new Button();
+      quiz.setOnAction(event1 -> {
 
 
 
-    newQuiz.setOnAction(event -> {
-      createNewQuestionScreen main = new createNewQuestionScreen();
-      main.show(primaryStage, quizzes, currentScene);
-      System.out.println(main.question);
-      System.out.println(main.getQuestion());
+
+
+
+
+
+      });
+      quizzes.getItems().add(quiz);
     });
   }
 
-
-
-  public static void main(String[] args) {
-    launch(args);
-  }
 }
