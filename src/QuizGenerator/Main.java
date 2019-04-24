@@ -15,8 +15,6 @@ import java.util.ArrayList;
 public class Main extends Application {
 
   BorderPane screen = new BorderPane();
-  ArrayList<BorderPane> pages= new ArrayList<>();
-  ArrayList<BorderPane> quizPages= new ArrayList<>();
   Scene currentScene = new Scene(screen, 300, 275);
 
   ListView<Button> quizzes = new ListView<>();
@@ -54,15 +52,11 @@ public class Main extends Application {
       Button quiz= new Button();
       quiz.setOnAction(event1 -> {
 
-
-
-
-
-
-
-
       });
       quizzes.getItems().add(quiz);
+      makeQuiz makeQuiz= new makeQuiz();
+      makeQuiz.show(primaryStage, currentScene);
+
     });
   }
 
