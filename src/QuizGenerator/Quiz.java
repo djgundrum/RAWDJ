@@ -1,7 +1,12 @@
 package QuizGenerator;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -14,6 +19,7 @@ public class Quiz {
   private int length;
   private int correct;
   private String name;
+  public static ListView<Button> questionsButton = new ListView<>();
 
   public Quiz(String name) {
     length = 0;
@@ -24,30 +30,40 @@ public class Quiz {
   public void show(Stage primaryStage, Scene original) {
     Stage main = new Stage();
     BorderPane screen = new BorderPane();
-    Text name = new Text(this.name);
+    Scene newScene = new Scene(screen,original.getWidth(),original.getHeight());
+    Label name = new Label(this.name);
+    name.setStyle("-fx-background-color: #FA8072;");
+    name.setFont(Font.font(40));
+    screen.setStyle("-fx-background-color: #FA8072;");
     screen.setTop(name);
-    boolean question = true;
-    while(question) {
+    screen.setBottom(questionsButton);
       Button makeQ = new Button("Create New Question");
       makeQ.setOnAction(event -> {
         createNewQuestionScreen the = new createNewQuestionScreen();
-        //Question q = the.show();
-        //makeQuiz(q);
+        the.show(primaryStage,questions,original);
+        makeQuiz(the.getQuestion());
+        Button questionButton = new Button(questions.get(length).question);
+
+        questionButton.setOnAction(event1 -> {
+          Question q = questions.get(length);
+          q.show(primaryStage, newScene);
+        });
         length++;
+        questionsButton.getItems().add(questionButton);
       });
       Button stopQuiz = new Button("Done Adding Questions");
       stopQuiz.setOnAction(event -> {
-        changeQuestionToFalse(question);
         addQuiz();
       });
-      screen.setRight(makeQ);
-      screen.setLeft(stopQuiz);
-    }
+      screen.setLeft(makeQ);
+      screen.setRight(stopQuiz);
+
+
+    primaryStage.setScene(newScene);
+    primaryStage.show();
 
   }
-  public void changeQuestionToFalse(boolean question){
-    question = false;
-  }
+
   public void makeQuiz(Question question) {
     questions.add(question);
   }

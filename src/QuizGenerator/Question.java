@@ -48,8 +48,14 @@ public class Question {
 
       Button add = new Button(answers.get(rand));
       if(rand==0&&switc){
-        //add.setOnAction(event -> );
+        add.setOnAction(event ->{
+          primaryStage.setScene(original);
+        } );
         switc = false;
+      }else{
+        add.setOnAction(event -> {
+          primaryStage.setScene(original);
+        });
       }
       questions.add(add,hor,vet);
       hor++;
