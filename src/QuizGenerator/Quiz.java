@@ -1,4 +1,5 @@
 package QuizGenerator;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -20,7 +21,7 @@ public class Quiz {
     this.name = name;
   }
 
-  public void show() {
+  public void show(Stage primaryStage, Scene original) {
     Stage main = new Stage();
     BorderPane screen = new BorderPane();
     Text name = new Text(this.name);
