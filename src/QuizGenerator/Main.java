@@ -19,7 +19,7 @@ public class Main extends Application {
   BorderPane screen = new BorderPane();
   Scene currentScene = new Scene(screen, 300, 275);
   HashMap<String, Quiz> quizHolder = new HashMap<>();
-
+  String[] returner = new String[1];
   ListView<Button> quizzes = new ListView<>();
 
 
@@ -68,7 +68,7 @@ public class Main extends Application {
       quizzes.getItems().add(quiz);
       makeQuiz makeQuiz = new makeQuiz();
       makeQuiz.show(primaryStage, currentScene, quizzes, quizHolder);
-
+      System.out.println(returner[0]);
     });
   }
 

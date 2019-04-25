@@ -16,7 +16,8 @@ public class makeQuiz {
 
 
 
-  public void show(Stage primaryStage, Scene original, ListView<Button> quizzes, HashMap<String, Quiz> quizHolder) {
+  public void show(Stage primaryStage, Scene original, ListView<Button> quizzes,
+                   HashMap<String, Quiz> quizHolder) {
     BorderPane pane = new BorderPane();
     Label title = new Label("What will be the name of the quiz?");
     title.setStyle("-fx-background-color: #FA8072;");
@@ -38,9 +39,12 @@ public class makeQuiz {
       System.out.println(temp);
       Quiz quiz = new Quiz(temp);
       Button qb = new Button(temp);
+      System.out.println(qb.getText());
       quizHolder.put(temp, quiz);
+      quizzes.getItems().add(qb);
       qb.setOnAction(eventS -> {
         Quiz ternary = quizHolder.get(temp);
+        System.out.println(ternary);
         ternary.show(primaryStage, original);
       });
       primaryStage.setScene(original);
