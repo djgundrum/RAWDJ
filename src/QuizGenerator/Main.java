@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import java.util.HashMap;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class Main extends Application {
 
   BorderPane screen = new BorderPane();
   Scene currentScene = new Scene(screen, 300, 275);
+  HashMap<String, Quiz> quizHolder = new HashMap<>();
 
   ListView<Button> quizzes = new ListView<>();
 
@@ -64,8 +66,8 @@ public class Main extends Application {
 
       });
       quizzes.getItems().add(quiz);
-      makeQuiz makeQuiz= new makeQuiz();
-      makeQuiz.show(primaryStage, currentScene);
+      makeQuiz makeQuiz = new makeQuiz();
+      makeQuiz.show(primaryStage, currentScene, quizzes, quizHolder);
 
     });
   }
