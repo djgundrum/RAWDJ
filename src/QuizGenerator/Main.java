@@ -61,14 +61,8 @@ public class Main extends Application {
 
 
     addNewQuiz.setOnAction(event -> {
-      Button quiz= new Button();
-      quiz.setOnAction(event1 -> {
-
-      });
-      quizzes.getItems().add(quiz);
       makeQuiz makeQuiz = new makeQuiz();
       makeQuiz.show(primaryStage, currentScene, quizzes, quizHolder);
-      System.out.println(returner[0]);
     });
   }
 
