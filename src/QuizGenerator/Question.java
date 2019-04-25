@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -29,6 +30,8 @@ public class Question {
   public void show(Stage primaryStage, Scene original) {
     BorderPane screen = new BorderPane();
     Text question = new Text(this.question);
+    question.setStyle("-fx-background-color: #FA8072;");
+    question.setFont (Font.font(40));
     GridPane questions = new GridPane();
     ArrayList<String> answers = new ArrayList<String>();
     answers.add(correctAnswer);
