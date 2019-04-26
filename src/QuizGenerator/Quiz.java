@@ -16,48 +16,84 @@ import java.util.LinkedList;
 
 public class Quiz {
 
+  // Keeps track of all the created questions, will be used when quiz is taken
   private LinkedList<Question> questions = new LinkedList<>();
-  private int length;
-  private int[] correct;
+
+  // Keeps track of how many questions there are, useful when calculating percent on a quiz
+  private double length;
+
+  // Keeps track of how many questions the user got right, must be in array format so that it can
+  // be passed as a parameter and not require anything to be returned from other method/class
+  private double[] correct;
+
+  // Keeps the name of the quiz, will be displayed in the listview
   private String name;
+
+  // Holds a visible list of all the questions, will be displayed in button form so that the user
+  // can click on the question and change the contents of it
   private ListView<Button> questionsButton = new ListView<>();
 
+  /*
+  Default constructor that assigns class variables
+   */
   public Quiz(String name) {
     length = 0;
-    correct = new int[0];
+    correct = new double[0];
     this.name = name;
   }
 
+  /**
+   * Method responsible for changing what is displayed on the screen to the user
+   * Creates a new scene and sets button handlers
+   * @param primaryStage // Window that is being displayed to the user
+   * @param original // Scene of the window that was previously displayed
+   */
   public void show(Stage primaryStage, Scene original) {
     BorderPane screen = new BorderPane();
+
+    // New scene that will be displayed
     Scene newScene = new Scene(screen, original.getWidth(), original.getHeight());
+
+    // String displayed at the top of the screen (Also sets the style)
     Label name = new Label(this.name);
     name.setStyle("-fx-background-color: #FA8072;");
     name.setFont(Font.font(40));
     screen.setStyle("-fx-background-color: #FA8072;");
-    screen.setTop(name);
-    screen.setBottom(questionsButton);
+    screen.setTop(name); // Puts the title string to the top of the window
+    screen.setCenter(questionsButton); // Puts the listview into the middle of the screen
+
+    // Makes button that will direct user to new question screen
     Button makeQ = new Button("Create New Question");
 
+    // Makes button that will allow user to take the quiz
     Button stopQuiz = new Button("Take the Quiz");
-    stopQuiz.setOnAction(event -> {
-      takeQuiz();
-    });
-    screen.setLeft(makeQ);
-    screen.setRight(stopQuiz);
 
+    screen.setLeft(makeQ); // Puts the create question button on the left side of the screen
+    screen.setRight(stopQuiz); // Puts the take quiz button on the right side of the screen
 
+    // Displays the new screen
     primaryStage.setScene(newScene);
     primaryStage.show();
 
+    // Sets what the make quiz button will do
     makeQ.setOnAction(event -> {
       createNewQuestionScreen the = new createNewQuestionScreen();
       the.show(null, 0, primaryStage, questions, questionsButton, newScene);
       //makeQuiz(the.getQuestion());
       length = questions.size();
     });
+
+    // Sets wha the take quiz button will do
+    stopQuiz.setOnAction(event -> {
+      takeQuiz();
+    });
+
   }
 
+  /**
+   * Method that will iterate through all the questions in the linked list and keep track of the
+   * score of the current quiz the user is taking
+   */
   public void takeQuiz() {
     correct[0] = 0;
     for (Question question : questions) {
