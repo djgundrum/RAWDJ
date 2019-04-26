@@ -17,9 +17,8 @@ import java.util.ArrayList;
 public class Main extends Application {
 
   BorderPane screen = new BorderPane();
-  Scene currentScene = new Scene(screen, 300, 275);
+  Scene currentScene = new Scene(screen, 600, 600);
   HashMap<String, Quiz> quizHolder = new HashMap<>();
-  String[] returner = new String[1];
   ListView<Button> quizzes = new ListView<>();
 
 
@@ -48,15 +47,6 @@ public class Main extends Application {
     quizzes.getItems().add(addNewQuiz);
     primaryStage.setScene(currentScene);
     primaryStage.show();
-
-    Button question = new Button("Question");
-    question.setOnAction(event -> {
-      Question q = new Question("A", "B", "C", "D", "E");
-      q.show(primaryStage, currentScene);
-
-    });
-
-    screen.setBottom(question);
 
 
 

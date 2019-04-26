@@ -8,17 +8,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.util.LinkedList;
 
-import java.util.concurrent.atomic.AtomicReference;
 
 public class createNewQuestionScreen {
 
-  public Question question = null;
 
-  public void show(Stage primaryStage, ListView<Question> quizzes, Scene original) {
+  public void show(Question prequestion, int index, Stage primaryStage,
+                   LinkedList<Question> questions,
+                   ListView<Button> questionsButton, Scene original) {
     BorderPane screen = new BorderPane();
     VBox fields = new VBox();
-    AtomicReference<Question> current = null;
     Label question = new Label("Question: ");
     TextField q = new TextField();
     Label correct = new Label("Correct Answer: ");
@@ -27,6 +27,13 @@ public class createNewQuestionScreen {
     TextField a1 = new TextField();
     TextField a2 = new TextField();
     TextField a3 = new TextField();
+    if (prequestion != null) {
+      q.setText(prequestion.question);
+      correctAnswer.setText(prequestion.correctAnswer);
+      a1.setText(prequestion.answer1);
+      a2.setText(prequestion.answer2);
+      a3.setText(prequestion.answer3);
+    }
     fields.getChildren().addAll(question, q, correct, correctAnswer, a1a, a1, a2, a3);
 
     screen.setTop(new Label("Make a Question!"));
@@ -40,8 +47,19 @@ public class createNewQuestionScreen {
       String atwo = a2.getText();
       String athree = a3.getText();
       Question qu = new Question(que, correctA, aone, atwo, athree);
-      quizzes.getItems().add(qu);
-      System.out.println(this.question);
+      questions.add(qu);
+      Button button = new Button(que);
+      button.setOnAction(event1 -> {
+        createNewQuestionScreen curr = new createNewQuestionScreen();
+        int inder = questionsButton.getItems().indexOf(button);
+        curr.show(qu, inder, primaryStage, questions, questionsButton, original);
+      });
+      if (prequestion != null) {
+        questionsButton.getItems().set(index, button);
+      }
+      else {
+        questionsButton.getItems().add(button);
+      }
       primaryStage.setScene(original);
       primaryStage.show();
     });
@@ -50,13 +68,5 @@ public class createNewQuestionScreen {
 
     primaryStage.setScene(new Scene(screen, 300, 275));
     primaryStage.show();
-  }
-
-  public void setQuestion (Question question) {
-    this.question = question;
-  }
-
-  public Question getQuestion() {
-    return this.question;
   }
 }

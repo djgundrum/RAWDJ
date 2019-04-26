@@ -26,7 +26,7 @@ public class Question {
     this.answer3 = a3;
   }
 //quiz to show each question
-  public void show(Stage primaryStage, Scene original) {
+  public void show(Stage primaryStage, Scene original, int[] score) {
     BorderPane screen = new BorderPane();
     Text question = new Text(this.question);
     GridPane questions = new GridPane();
@@ -63,7 +63,7 @@ public class Question {
     }while(answers.size()!=0);
     screen.setTop(question);
     screen.setCenter(questions);
-    primaryStage.setScene(new Scene(screen, 300, 275));
+    primaryStage.setScene(new Scene(screen, original.getWidth(), original.getHeight()));
     primaryStage.show();
 
   }
