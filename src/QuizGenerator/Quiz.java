@@ -7,6 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -68,8 +69,18 @@ public class Quiz {
     // Makes button that will allow user to take the quiz
     Button stopQuiz = new Button("Take the Quiz");
 
-    screen.setLeft(makeQ); // Puts the create question button on the left side of the screen
-    screen.setRight(stopQuiz); // Puts the take quiz button on the right side of the screen
+    // Makes button so that the user can return to the list of quizzes from first screen
+    Button returner = new Button("Return to Quizzes");
+
+    // Makes the structure to hold all the buttons on the right side of the screen
+    VBox right = new VBox();
+    right.getChildren().addAll(makeQ, stopQuiz, returner);
+    screen.setRight(right);
+
+    // Makes the structure to hold all the previous attempts on the bottom of the screen
+    HBox bottom = new HBox();
+    bottom.setStyle("-fx-background-color: #FA8072;");
+    screen.setBottom(bottom);
 
     // Displays the new screen
     primaryStage.setScene(newScene);
@@ -85,7 +96,12 @@ public class Quiz {
 
     // Sets wha the take quiz button will do
     stopQuiz.setOnAction(event -> {
-      takeQuiz(primaryStage, newScene);
+      takeQuiz(primaryStage, newScene, bottom);
+    });
+
+    returner.setOnAction(event -> {
+      primaryStage.setScene(original);
+      primaryStage.show();
     });
 
   }
@@ -94,12 +110,13 @@ public class Quiz {
    * Method that will iterate through all the questions in the linked list and keep track of the
    * score of the current quiz the user is taking
    */
-  public void takeQuiz(Stage primaryStage, Scene original) {
+  public void takeQuiz(Stage primaryStage, Scene original, HBox bottom) {
     System.out.println(questions.size());
     correct[0] = 0.0;
     Object[] qs = questions.toArray();
     Question current = (Question) qs[0];
-    current.show(primaryStage, original, correct, qs, 0);
+    String[][] attempt = new String[3][qs.length];
+    current.show(primaryStage, original, attempt, qs, 0, bottom);
   }
 
 
