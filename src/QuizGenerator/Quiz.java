@@ -38,7 +38,7 @@ public class Quiz {
    */
   public Quiz(String name) {
     length = 0;
-    correct = new double[0];
+    correct = new double[1];
     this.name = name;
   }
 
@@ -85,7 +85,7 @@ public class Quiz {
 
     // Sets wha the take quiz button will do
     stopQuiz.setOnAction(event -> {
-      takeQuiz();
+      takeQuiz(primaryStage, newScene);
     });
 
   }
@@ -94,11 +94,12 @@ public class Quiz {
    * Method that will iterate through all the questions in the linked list and keep track of the
    * score of the current quiz the user is taking
    */
-  public void takeQuiz() {
-    correct[0] = 0;
-    for (Question question : questions) {
-
-    }
+  public void takeQuiz(Stage primaryStage, Scene original) {
+    System.out.println(questions.size());
+    correct[0] = 0.0;
+    Object[] qs = questions.toArray();
+    Question current = (Question) qs[0];
+    current.show(primaryStage, original, correct, qs, 0);
   }
 
 

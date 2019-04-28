@@ -89,6 +89,7 @@ public class createNewQuestionScreen {
 
       // Creates a new button (will be added to the listview
       Button button = new Button(que);
+      button.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;");
       button.setOnAction(event1 -> {
         // Creates a new instance of the this class
         createNewQuestionScreen curr = new createNewQuestionScreen();

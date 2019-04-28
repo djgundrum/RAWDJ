@@ -36,6 +36,7 @@ public class makeQuiz {
       String temp = editor.getText();
       Quiz quiz = new Quiz(temp);
       Button qb = new Button(temp);
+      qb.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;");
       quizHolder.put(temp, quiz);
       quizzes.getItems().add(qb);
       qb.setOnAction(eventS -> {
