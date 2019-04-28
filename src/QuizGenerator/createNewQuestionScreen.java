@@ -122,8 +122,10 @@ public class createNewQuestionScreen {
         // Creates a new instance of the this class
         createNewQuestionScreen curr = new createNewQuestionScreen();
 
-        // Gets the i
+        // Gets the index of the the button in the listview
         int inder = questionsButton.getItems().indexOf(button);
+
+        //Shows the create new question screen but with all the fields of this current question
         curr.show(qu, inder, primaryStage, questions, questionsButton, original);
       });
     });

@@ -32,7 +32,19 @@ public class makeQuiz {
     primaryStage.show();
 
 
-
+    editor.setOnAction(event -> {
+      String temp = editor.getText();
+      Quiz quiz = new Quiz(temp);
+      Button qb = new Button(temp);
+      quizHolder.put(temp, quiz);
+      quizzes.getItems().add(qb);
+      qb.setOnAction(eventS -> {
+        Quiz ternary = quizHolder.get(temp);
+        ternary.show(primaryStage, original);
+      });
+      primaryStage.setScene(original);
+      primaryStage.show();
+    });
 
     button.setOnAction(event -> {
       String temp = editor.getText();
