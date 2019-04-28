@@ -46,7 +46,7 @@ public class Question {
     int ind = 0;
     for (int col = 0; col < 2; ++col) {
       for (int row = 0; row < 2; ++row) {
-        if (c != col && r != row || c != col || r != row) {
+        if (c != col || r != row) {
           questions.add(bees[ind], col, row);
           ++ind;
         }
