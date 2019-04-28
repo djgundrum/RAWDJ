@@ -5,20 +5,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Quiz {
 
   // Keeps track of all the created questions, will be used when quiz is taken
   private LinkedList<Question> questions = new LinkedList<>();
+
+  // Keeps track of all the attempts that the user has made
+  private HBox bottom = new HBox();
 
   // Keeps track of how many questions there are, useful when calculating percent on a quiz
   private double length;
@@ -77,10 +77,9 @@ public class Quiz {
     right.getChildren().addAll(makeQ, stopQuiz, returner);
     screen.setRight(right);
 
-    // Makes the structure to hold all the previous attempts on the bottom of the screen
-    HBox bottom = new HBox();
-    bottom.setStyle("-fx-background-color: #FA8072;");
-    screen.setBottom(bottom);
+    // Sets the style and where the HBox of all the attempts will be
+    this.bottom.setStyle("-fx-background-color: #FA8072;");
+    screen.setBottom(this.bottom);
 
     // Displays the new screen
     primaryStage.setScene(newScene);
@@ -96,7 +95,7 @@ public class Quiz {
 
     // Sets wha the take quiz button will do
     stopQuiz.setOnAction(event -> {
-      takeQuiz(primaryStage, newScene, bottom);
+      takeQuiz(primaryStage, newScene, this.bottom);
     });
 
     returner.setOnAction(event -> {
@@ -111,7 +110,6 @@ public class Quiz {
    * score of the current quiz the user is taking
    */
   public void takeQuiz(Stage primaryStage, Scene original, HBox bottom) {
-    System.out.println(questions.size());
     correct[0] = 0.0;
     Object[] qs = questions.toArray();
     Question current = (Question) qs[0];
