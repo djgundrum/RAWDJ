@@ -61,4 +61,9 @@ public class makeQuiz {
       primaryStage.show();
     });
   }
+
+  public void putInListViewHelper(Question question, int index) {
+    createNewQuestionScreen the = new createNewQuestionScreen();
+    //the.show(question, index, this.pStage, questions, questionsButton, newScene);
+  }
 }

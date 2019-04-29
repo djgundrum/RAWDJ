@@ -9,10 +9,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.util.HashMap;
 
-import java.util.ArrayList;
+import java.io.*;
+import java.util.Collection;
+import java.util.HashMap;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
+
+import java.util.LinkedList;
 
 
 public class Main extends Application {
@@ -35,6 +42,9 @@ public class Main extends Application {
   }
 
   public void setHomePage(Stage primaryStage){
+    // Used when a user loads or saves a file
+    FileChooser fileChooser = new FileChooser();
+
     // Sets the string at the top of the current scene
     Label title = new Label("CS400 Quiz Generator");
 
@@ -82,12 +92,110 @@ public class Main extends Application {
     });
 
     loadFile.setOnAction(event -> {
-
+      loadHelper(fileChooser, primaryStage);
     });
 
     saveFile.setOnAction(event -> {
-
+      saveHelper(fileChooser, primaryStage);
     });
+  }
+
+  @SuppressWarnings("unchecked")
+  private void saveHelper(FileChooser fileChooser, Stage primaryStage) {
+    try {
+      // Setting up the files
+      FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("JSON files " +
+              "(*.json)", "*.json");
+      File init = new File(".");
+      fileChooser.setInitialDirectory(init);
+      fileChooser.getExtensionFilters().add(extensionFilter);
+      File file = fileChooser.showOpenDialog(primaryStage);
+      if (file == null)
+        file = new File("./CURRENT.json");
+      FileWriter fw = new FileWriter(file);
+
+      Collection<Quiz> quizzers = quizHolder.values();
+
+      // Will hold all the quizzes in separate arrays
+      JSONArray allQuizzes = new JSONArray();
+
+      // Goes through all the quizzes in the hashmap and puts each of them into JSON format
+      for (Quiz current : quizzers) {
+        JSONObject currentQuiz = new JSONObject();
+        currentQuiz.put("Name", current.name);
+        JSONArray questionsInQuiz = new JSONArray(); // Holds all the question JSON types
+        LinkedList<Question> questions = current.questions;
+
+        // Goes through all the questions in the quiz and puts each question into JSON format
+        for (Question question : questions) {
+          JSONObject currentQuestion = new JSONObject();
+          currentQuestion.put("Question", question.question);
+          currentQuestion.put("Correct Answer", question.correctAnswer);
+          currentQuestion.put("Answer 1", question.answer1);
+          currentQuestion.put("Answer 2", question.answer2);
+          currentQuestion.put("Answer 3", question.answer3);
+          questionsInQuiz.add(currentQuestion);
+        }
+
+        currentQuiz.put("Questions", questionsInQuiz);
+        allQuizzes.add(currentQuiz);
+      }
+
+      fw.write(allQuizzes.toJSONString());
+      fw.flush();
+    } catch (IOException e) {
+      System.out.println("You suck at everything");
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  public void loadHelper(FileChooser fileChooser, Stage primaryStage) {
+    try {
+      // Setting up the files
+      FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("JSON files " +
+              "(*.json)", "*.json");
+      File init = new File(".");
+      fileChooser.setInitialDirectory(init);
+      fileChooser.getExtensionFilters().add(extensionFilter);
+      File file = fileChooser.showOpenDialog(primaryStage);
+      if (file == null)
+        file = new File("./CURRENT.json");
+
+      FileReader fr = new FileReader(file);
+      Object o = new JSONParser().parse(fr);
+
+      JSONArray quizzes = (JSONArray) o;
+
+      for (int i = 0; i < quizzes.size(); ++i) {
+        JSONObject jo = (JSONObject) quizzes.get(i);
+        Quiz current = new Quiz((String)jo.get("Name"));
+        JSONArray questions = (JSONArray) jo.get("Questions");
+
+        for (int j = 0; j < questions.size(); ++j) {
+          JSONObject currentQuestion = (JSONObject) questions.get(j);
+          String question = (String) currentQuestion.get("Question");
+          String correctAnswer = (String) currentQuestion.get("Correct Answer");
+          String aonw = (String) currentQuestion.get("Answer 1");
+          String atwo = (String) currentQuestion.get("Answer 2");
+          String athree = (String) currentQuestion.get("Answer 3");
+
+          Question q = new Question(question, correctAnswer, aonw, atwo, athree);
+          current.putInListViewHelper(q);
+        }
+        quizHolder.put(current.name, current);
+        Button b1 = new Button(current.name);
+        b1.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;");
+        this.quizzes.getItems().add(b1);
+        b1.setOnAction(event -> {
+          Quiz ternary = quizHolder.get(current.name);
+          ternary.show(primaryStage, currentScene);
+        });
+      }
+
+    } catch (Exception e) {
+      System.out.println("Something went wrong");
+      e.printStackTrace();
+    }
   }
 
 }

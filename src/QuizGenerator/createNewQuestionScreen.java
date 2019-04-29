@@ -105,7 +105,7 @@ public class createNewQuestionScreen {
       // Removes old question from linked list and replaces button in listview
       if (prequestion != null) {
         questionsButton.getItems().set(index, button);
-        questions.remove(prequestion);
+        questions.remove(prequestion); // TODO check this bad boy
       }
       // Enters if this is a new question
       // Adds it to the listview

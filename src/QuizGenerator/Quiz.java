@@ -27,6 +27,10 @@ public class Quiz {
   // can click on the question and change the contents of it
   public ListView<Button> questionsButton = new ListView<>();
 
+  private Stage pStage;
+
+  private Scene newScene;
+
   /*
   Default constructor that assigns class variables
    */
@@ -41,10 +45,14 @@ public class Quiz {
    * @param original // Scene of the window that was previously displayed
    */
   public void show(Stage primaryStage, Scene original) {
+    this.pStage = primaryStage;
+
+
     BorderPane screen = new BorderPane();
 
     // New scene that will be displayed
     Scene newScene = new Scene(screen, original.getWidth(), original.getHeight());
+    this.newScene = newScene;
 
     // String displayed at the top of the screen (Also sets the style)
     Label name = new Label(this.name);
@@ -103,6 +111,18 @@ public class Quiz {
     Question current = (Question) qs[0];
     String[][] attempt = new String[3][qs.length];
     current.show(primaryStage, original, attempt, qs, 0, bottom);
+  }
+
+  public void putInListViewHelper(Question question) {
+    questions.add(question);
+    Button b1 = new Button(question.question);
+    b1.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;");
+    questionsButton.getItems().add(b1);
+    b1.setOnAction(event -> {
+      createNewQuestionScreen the = new createNewQuestionScreen();
+      the.show(question, questionsButton.getItems().indexOf(b1), pStage, questions, questionsButton,
+              newScene);
+    });
   }
 
 
