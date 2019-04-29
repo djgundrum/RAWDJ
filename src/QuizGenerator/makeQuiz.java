@@ -19,7 +19,7 @@ public class makeQuiz {
   public void show(Stage primaryStage, Scene original, ListView<Button> quizzes,
                    HashMap<String, Quiz> quizHolder) {
     BorderPane pane = new BorderPane();
-    Label title = new Label("What will be the name of the quiz?");
+    Label title = new Label("Name Your Quiz");
     title.setStyle("-fx-background-color: #FA8072;");
     title.setFont(Font.font(40));
     TextField editor = new TextField();

@@ -12,10 +12,10 @@ import java.util.Random;
 public class Question {
 
   public String question;
-  String correctAnswer;
-  String answer1;
-  String answer2;
-  String answer3;
+  public String correctAnswer;
+  public String answer1;
+  public String answer2;
+  public String answer3;
 
   public Question(String q, String c, String a1, String a2, String a3) {
     this.question = q;

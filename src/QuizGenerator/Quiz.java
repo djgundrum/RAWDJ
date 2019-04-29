@@ -15,31 +15,22 @@ import java.util.LinkedList;
 public class Quiz {
 
   // Keeps track of all the created questions, will be used when quiz is taken
-  private LinkedList<Question> questions = new LinkedList<>();
+  public LinkedList<Question> questions = new LinkedList<>();
 
   // Keeps track of all the attempts that the user has made
-  private HBox bottom = new HBox();
-
-  // Keeps track of how many questions there are, useful when calculating percent on a quiz
-  private double length;
-
-  // Keeps track of how many questions the user got right, must be in array format so that it can
-  // be passed as a parameter and not require anything to be returned from other method/class
-  private double[] correct;
+  public HBox bottom = new HBox();
 
   // Keeps the name of the quiz, will be displayed in the listview
-  private String name;
+  public String name;
 
   // Holds a visible list of all the questions, will be displayed in button form so that the user
   // can click on the question and change the contents of it
-  private ListView<Button> questionsButton = new ListView<>();
+  public ListView<Button> questionsButton = new ListView<>();
 
   /*
   Default constructor that assigns class variables
    */
   public Quiz(String name) {
-    length = 0;
-    correct = new double[1];
     this.name = name;
   }
 
@@ -89,8 +80,6 @@ public class Quiz {
     makeQ.setOnAction(event -> {
       createNewQuestionScreen the = new createNewQuestionScreen();
       the.show(null, 0, primaryStage, questions, questionsButton, newScene);
-      //makeQuiz(the.getQuestion());
-      length = questions.size();
     });
 
     // Sets wha the take quiz button will do
@@ -110,7 +99,6 @@ public class Quiz {
    * score of the current quiz the user is taking
    */
   public void takeQuiz(Stage primaryStage, Scene original, HBox bottom) {
-    correct[0] = 0.0;
     Object[] qs = questions.toArray();
     Question current = (Question) qs[0];
     String[][] attempt = new String[3][qs.length];
