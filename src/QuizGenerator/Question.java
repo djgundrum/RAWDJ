@@ -82,7 +82,7 @@ public class Question {
         Question current = (Question) qs[index + 1];
         current.show(primaryStage, original, attempt, qs, index + 1, bot);
       } else {
-        Attempt attempt1 = new Attempt("Attempt " + bot.getChildren().size() + 1);
+        Attempt attempt1 = new Attempt("Attempt " + (bot.getChildren().size() + 1));
         Button button = new Button(attempt1.name);
         button.setOnAction(event1 -> {
           attempt1.show(primaryStage, original, attempt[0], attempt[1], attempt[2]);

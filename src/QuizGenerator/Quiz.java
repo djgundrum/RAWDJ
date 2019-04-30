@@ -56,9 +56,9 @@ public class Quiz {
 
     // String displayed at the top of the screen (Also sets the style)
     Label name = new Label(this.name);
-    name.setStyle("-fx-background-color: #FA8072;");
+    name.setStyle("-fx-background-color: #F5FFFA;");
     name.setFont(Font.font(40));
-    screen.setStyle("-fx-background-color: #FA8072;");
+    screen.setStyle("-fx-background-color: #F5FFFA;");
     screen.setTop(name); // Puts the title string to the top of the window
     screen.setCenter(questionsButton); // Puts the listview into the middle of the screen
 
@@ -77,7 +77,7 @@ public class Quiz {
     screen.setRight(right);
 
     // Sets the style and where the HBox of all the attempts will be
-    this.bottom.setStyle("-fx-background-color: #FA8072;");
+    this.bottom.setStyle("-fx-background-color: #F5FFFA;");
     screen.setBottom(this.bottom);
 
     // Displays the new screen

@@ -20,7 +20,7 @@ public class makeQuiz {
                    HashMap<String, Quiz> quizHolder) {
     BorderPane pane = new BorderPane();
     Label title = new Label("Name Your Quiz");
-    title.setStyle("-fx-background-color: #FA8072;");
+    title.setStyle("-fx-background-color: #E0FFFF;");
     title.setFont(Font.font(40));
     TextField editor = new TextField();
     Button button= new Button("Enter");
