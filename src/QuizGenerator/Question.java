@@ -4,20 +4,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Question {
 
   public String question;
-  String correctAnswer;
-  String answer1;
-  String answer2;
-  String answer3;
+  public String correctAnswer;
+  public String answer1;
+  public String answer2;
+  public String answer3;
 
   public Question(String q, String c, String a1, String a2, String a3) {
     this.question = q;
@@ -27,41 +25,112 @@ public class Question {
     this.answer3 = a3;
   }
 //quiz to show each question
-  public void show(Stage primaryStage, Scene original) {
+  public void show(Stage primaryStage, Scene original, String[][] attempt, Object[] qs, int index
+          , HBox bot) {
     BorderPane screen = new BorderPane();
     Text question = new Text(this.question);
-    question.setStyle("-fx-background-color: #FA8072;");
-    question.setFont (Font.font(40));
     GridPane questions = new GridPane();
-    ArrayList<String> answers = new ArrayList<String>();
-    answers.add(correctAnswer);
-    answers.add(answer1);
-    answers.add(answer2);
-    answers.add(answer3);
-    Random num = new Random();
-    int hor=0;
-    int vet=0;
-    boolean switc = true;
-    do{
-      if(hor ==2){
-        hor =0;
-        vet =1;
-      }
-      int rand =num.nextInt(answers.size());
+    Random rand = new Random();
 
-      Button add = new Button(answers.get(rand));
-      if(rand==0&&switc){
-        //add.setOnAction(event -> );
-        switc = false;
+    // Makes the buttons that will be shown in the middle of the screen (holds the answers)
+    Button correct = new Button(this.correctAnswer);
+    Button aone = new Button(this.answer1);
+    Button atwo = new Button(this.answer2);
+    Button athree = new Button(this.answer3);
+
+    int c = rand.nextInt(2);
+    int r = rand.nextInt(2);
+    questions.add(correct, c, r);
+
+    Button[] bees = {aone, atwo, athree};
+    int ind = 0;
+    for (int col = 0; col < 2; ++col) {
+      for (int row = 0; row < 2; ++row) {
+        if (c != col || r != row) {
+          questions.add(bees[ind], col, row);
+          ++ind;
+        }
       }
-      questions.add(add,hor,vet);
-      hor++;
-      answers.remove(rand);
-    }while(answers.size()!=0);
+    }
+
+    HBox bottom = new HBox();
+
+    Button prev = new Button("Previous");
+    Button next;
+    if (index == qs.length - 1)
+      next = new Button("Done");
+    else
+      next = new Button("Next");
+
+    bottom.getChildren().addAll(prev, next);
+
+
     screen.setTop(question);
     screen.setCenter(questions);
-    primaryStage.setScene(new Scene(screen, 300, 275));
+    screen.setBottom(bottom);
+    primaryStage.setScene(new Scene(screen, original.getWidth(), original.getHeight()));
     primaryStage.show();
 
+
+    prev.setOnAction(event -> {
+      Question current = (Question) qs[index - 1];
+      current.show(primaryStage, original, attempt, qs, index - 1, bot);
+    });
+
+    next.setOnAction(event -> {
+      if (next.getText().equals("Next")) {
+        Question current = (Question) qs[index + 1];
+        current.show(primaryStage, original, attempt, qs, index + 1, bot);
+      } else {
+        Attempt attempt1 = new Attempt("Attempt " + bot.getChildren().size() + 1);
+        Button button = new Button(attempt1.name);
+        button.setOnAction(event1 -> {
+          attempt1.show(primaryStage, original, attempt[0], attempt[1], attempt[2]);
+        });
+        bot.getChildren().add(button);
+        primaryStage.setScene(original);
+        primaryStage.show();
+      }
+    });
+
+    correct.setOnAction(event -> {
+      aone.setStyle(null);
+      atwo.setStyle(null);
+      athree.setStyle(null);
+      correct.setStyle("-fx-background-color: green;");
+      attempt[0][index] = this.question;
+      attempt[1][index] = this.correctAnswer;
+      attempt[2][index] = correct.getText();
+    });
+
+    aone.setOnAction(event -> {
+      correct.setStyle(null);
+      atwo.setStyle(null);
+      athree.setStyle(null);
+      aone.setStyle("-fx-background-color: green;");
+      attempt[0][index] = this.question;
+      attempt[1][index] = this.correctAnswer;
+      attempt[2][index] = aone.getText();
+    });
+
+    atwo.setOnAction(event -> {
+      aone.setStyle(null);
+      correct.setStyle(null);
+      athree.setStyle(null);
+      atwo.setStyle("-fx-background-color: green;");
+      attempt[0][index] = this.question;
+      attempt[1][index] = this.correctAnswer;
+      attempt[2][index] = atwo.getText();
+    });
+
+    athree.setOnAction(event -> {
+      aone.setStyle(null);
+      atwo.setStyle(null);
+      correct.setStyle(null);
+      athree.setStyle("-fx-background-color: green;");
+      attempt[0][index] = this.question;
+      attempt[1][index] = this.correctAnswer;
+      attempt[2][index] = athree.getText();
+    });
   }
 }

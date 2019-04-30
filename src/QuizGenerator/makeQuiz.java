@@ -19,7 +19,7 @@ public class makeQuiz {
   public void show(Stage primaryStage, Scene original, ListView<Button> quizzes,
                    HashMap<String, Quiz> quizHolder) {
     BorderPane pane = new BorderPane();
-    Label title = new Label("What will be the name of the quiz?");
+    Label title = new Label("Name Your Quiz");
     title.setStyle("-fx-background-color: #FA8072;");
     title.setFont(Font.font(40));
     TextField editor = new TextField();
@@ -32,23 +32,38 @@ public class makeQuiz {
     primaryStage.show();
 
 
-
-
-    button.setOnAction(event -> {
+    editor.setOnAction(event -> {
       String temp = editor.getText();
-      System.out.println(temp);
       Quiz quiz = new Quiz(temp);
       Button qb = new Button(temp);
-      System.out.println(qb.getText());
+      qb.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;");
       quizHolder.put(temp, quiz);
       quizzes.getItems().add(qb);
       qb.setOnAction(eventS -> {
         Quiz ternary = quizHolder.get(temp);
-        System.out.println(ternary);
         ternary.show(primaryStage, original);
       });
       primaryStage.setScene(original);
       primaryStage.show();
     });
+
+    button.setOnAction(event -> {
+      String temp = editor.getText();
+      Quiz quiz = new Quiz(temp);
+      Button qb = new Button(temp);
+      quizHolder.put(temp, quiz);
+      quizzes.getItems().add(qb);
+      qb.setOnAction(eventS -> {
+        Quiz ternary = quizHolder.get(temp);
+        ternary.show(primaryStage, original);
+      });
+      primaryStage.setScene(original);
+      primaryStage.show();
+    });
+  }
+
+  public void putInListViewHelper(Question question, int index) {
+    createNewQuestionScreen the = new createNewQuestionScreen();
+    //the.show(question, index, this.pStage, questions, questionsButton, newScene);
   }
 }

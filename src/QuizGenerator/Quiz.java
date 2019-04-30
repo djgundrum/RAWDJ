@@ -1,68 +1,128 @@
 package QuizGenerator;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Quiz {
 
-  private LinkedList<Question> questions = new LinkedList<>();
-  private int length;
-  private int correct;
-  private String name;
+  // Keeps track of all the created questions, will be used when quiz is taken
+  public LinkedList<Question> questions = new LinkedList<>();
 
+  // Keeps track of all the attempts that the user has made
+  public HBox bottom = new HBox();
+
+  // Keeps the name of the quiz, will be displayed in the listview
+  public String name;
+
+  // Holds a visible list of all the questions, will be displayed in button form so that the user
+  // can click on the question and change the contents of it
+  public ListView<Button> questionsButton = new ListView<>();
+
+  private Stage pStage;
+
+  private Scene newScene;
+
+  /*
+  Default constructor that assigns class variables
+   */
   public Quiz(String name) {
-    length = 0;
-    correct = 0;
     this.name = name;
   }
 
+  /**
+   * Method responsible for changing what is displayed on the screen to the user
+   * Creates a new scene and sets button handlers
+   * @param primaryStage // Window that is being displayed to the user
+   * @param original // Scene of the window that was previously displayed
+   */
   public void show(Stage primaryStage, Scene original) {
-    Stage main = new Stage();
+    this.pStage = primaryStage;
+
+
     BorderPane screen = new BorderPane();
-    Text name = new Text(this.name);
-    screen.setTop(name);
-    boolean question = true;
-    while(question) {
-      Button makeQ = new Button("Create New Question");
-      makeQ.setOnAction(event -> {
-        createNewQuestionScreen the = new createNewQuestionScreen();
-        //Question q = the.show();
-        //makeQuiz(q);
-        length++;
-      });
-      Button stopQuiz = new Button("Done Adding Questions");
-      stopQuiz.setOnAction(event -> {
-        changeQuestionToFalse(question);
-        addQuiz();
-      });
-      screen.setRight(makeQ);
-      screen.setLeft(stopQuiz);
-    }
+
+    // New scene that will be displayed
+    Scene newScene = new Scene(screen, original.getWidth(), original.getHeight());
+    this.newScene = newScene;
+
+    // String displayed at the top of the screen (Also sets the style)
+    Label name = new Label(this.name);
+    name.setStyle("-fx-background-color: #FA8072;");
+    name.setFont(Font.font(40));
+    screen.setStyle("-fx-background-color: #FA8072;");
+    screen.setTop(name); // Puts the title string to the top of the window
+    screen.setCenter(questionsButton); // Puts the listview into the middle of the screen
+
+    // Makes button that will direct user to new question screen
+    Button makeQ = new Button("Create New Question");
+
+    // Makes button that will allow user to take the quiz
+    Button stopQuiz = new Button("Take the Quiz");
+
+    // Makes button so that the user can return to the list of quizzes from first screen
+    Button returner = new Button("Return to Quizzes");
+
+    // Makes the structure to hold all the buttons on the right side of the screen
+    VBox right = new VBox();
+    right.getChildren().addAll(makeQ, stopQuiz, returner);
+    screen.setRight(right);
+
+    // Sets the style and where the HBox of all the attempts will be
+    this.bottom.setStyle("-fx-background-color: #FA8072;");
+    screen.setBottom(this.bottom);
+
+    // Displays the new screen
+    primaryStage.setScene(newScene);
+    primaryStage.show();
+
+    // Sets what the make quiz button will do
+    makeQ.setOnAction(event -> {
+      createNewQuestionScreen the = new createNewQuestionScreen();
+      the.show(null, 0, primaryStage, questions, questionsButton, newScene);
+    });
+
+    // Sets wha the take quiz button will do
+    stopQuiz.setOnAction(event -> {
+      takeQuiz(primaryStage, newScene, this.bottom);
+    });
+
+    returner.setOnAction(event -> {
+      primaryStage.setScene(original);
+      primaryStage.show();
+    });
 
   }
-  public void changeQuestionToFalse(boolean question){
-    question = false;
+
+  /**
+   * Method that will iterate through all the questions in the linked list and keep track of the
+   * score of the current quiz the user is taking
+   */
+  public void takeQuiz(Stage primaryStage, Scene original, HBox bottom) {
+    Object[] qs = questions.toArray();
+    Question current = (Question) qs[0];
+    String[][] attempt = new String[3][qs.length];
+    current.show(primaryStage, original, attempt, qs, 0, bottom);
   }
-  public void makeQuiz(Question question) {
+
+  public void putInListViewHelper(Question question) {
     questions.add(question);
-  }
-  //adds Quiz to the hashMap
-  //key for hashmap is string name of quiz, value is the linkedlist
-  public void addQuiz(){
-
-  }
-  public void getAllQuestions() {
-    correct = 0;
-    Question[] all = (Question[])questions.toArray();
-    length = all.length;
-    for (int i = 0; i < all.length; ++i) {
-
-    }
+    Button b1 = new Button(question.question);
+    b1.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;");
+    questionsButton.getItems().add(b1);
+    b1.setOnAction(event -> {
+      createNewQuestionScreen the = new createNewQuestionScreen();
+      the.show(question, questionsButton.getItems().indexOf(b1), pStage, questions, questionsButton,
+              newScene);
+    });
   }
 
 
