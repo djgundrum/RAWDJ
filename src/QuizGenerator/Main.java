@@ -21,7 +21,7 @@ import org.json.simple.parser.*;
 
 import java.util.LinkedList;
 
-//hi
+// hi this is atessa trying to figure out her password
 public class Main extends Application {
 
   BorderPane screen = new BorderPane();
