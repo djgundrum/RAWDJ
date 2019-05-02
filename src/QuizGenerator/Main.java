@@ -21,7 +21,7 @@ import org.json.simple.parser.*;
 
 import java.util.LinkedList;
 
-//hello
+//hi
 public class Main extends Application {
 
   BorderPane screen = new BorderPane();
