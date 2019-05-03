@@ -20,7 +20,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
 import java.util.LinkedList;
-//atessa
+
 public class Main extends Application {
 
   BorderPane screen = new BorderPane();
