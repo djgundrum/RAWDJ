@@ -21,7 +21,6 @@ import org.json.simple.parser.*;
 
 import java.util.LinkedList;
 
-
 public class Main extends Application {
 
   BorderPane screen = new BorderPane();
@@ -63,14 +62,14 @@ public class Main extends Application {
     topper.getChildren().addAll(addNewQuiz, loadFile, saveFile);
 
     // Screen is the main border pane for this scene
-    screen.setStyle("-fx-background-color: #FA8072;");
+    screen.setStyle("-fx-background-color: #E0FFFF;");
 
     // Quizzes is the listview in the middle of the screen
-    quizzes.setStyle("-fx-background-color: #FA8072;");
-    addNewQuiz.setStyle("-fx-background-color: #FA8072;-fx-border-color: black;");
-    loadFile.setStyle("-fx-background-color: #FA8072;-fx-border-color: black;");
-    saveFile.setStyle("-fx-background-color: #FA8072;-fx-border-color: black;");
-    title.setStyle("-fx-background-color: #FA8072;");
+    quizzes.setStyle("-fx-background-color: #E0FFFF;");
+    addNewQuiz.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
+    loadFile.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
+    saveFile.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
+    title.setStyle("-fx-background-color: #E0FFFF;");
     title.setFont(Font.font(40));
 
     // Setting where each of the created items will be displayed on the screen
