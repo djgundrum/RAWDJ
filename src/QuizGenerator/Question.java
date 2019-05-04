@@ -1,7 +1,20 @@
+// Title: RAWDJ Quiz Generator
+// Files: Attempt.java, Controller.java, createNewQuestionScreen.java, Main.java, makeQuiz.java,
+// Question.java, Quiz.java
+// Course: Comp Sci 400, Spring 2019
+//
+// Authors: Justin Burns, Declan Gundrum, Ryan Erdmann, William Weis, Atessa Amjadi
+// Emails:  jdburns2@wisc.edu, djgundrum@wisc.edu, raerdmann@wisc.edu,
+// wzweis@wisc.edu, aamjadi@wisc.edu
+// Lecturer's Name: Debra Deppler
+//////////////////////////////////////////////////////////////////////////////////////////////////
 package QuizGenerator;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -49,11 +62,20 @@ public class Question {
     GridPane questions = new GridPane();
     Random rand = new Random();
 
+    ////////////////////
+    Label questionNumber = new Label("Qustion: "+(index+1)+"/"+qs.length);
+    screen.setRight(questionNumber);
+    ////////////////////
+
     // Makes the buttons that will be shown in the middle of the screen (holds the answers)
     Button correct = new Button(this.correctAnswer);
+    correct.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
     Button aone = new Button(this.answer1);
+    aone.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
     Button atwo = new Button(this.answer2);
+    atwo.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
     Button athree = new Button(this.answer3);
+    athree.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
 
     //random value gens for setup
     int c = rand.nextInt(2);
@@ -79,11 +101,13 @@ public class Question {
     //initializes the creation of the previous, done and next button, and will add them to the hbox
     //depending on if there will be more questions or not
     Button prev = new Button("Previous");
+    prev.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
     Button next;
     if (index == qs.length - 1)
       next = new Button("Done");
     else
       next = new Button("Next");
+    next.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
 //adds the buttons to the hbox depending
     bottom.getChildren().addAll(prev, next);
 
@@ -110,6 +134,7 @@ public class Question {
         //if not records the attempt
         Attempt attempt1 = new Attempt("Attempt " + (bot.getChildren().size() + 1));
         Button button = new Button(attempt1.name);
+        button.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
         button.setOnAction(event1 -> {
           attempt1.show(primaryStage, original, attempt[0], attempt[1], attempt[2]);
         });

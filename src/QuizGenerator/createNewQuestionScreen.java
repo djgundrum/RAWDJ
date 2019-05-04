@@ -1,3 +1,13 @@
+// Title: RAWDJ Quiz Generator
+// Files: Attempt.java, Controller.java, createNewQuestionScreen.java, Main.java, makeQuiz.java,
+// Question.java, Quiz.java
+// Course: Comp Sci 400, Spring 2019
+//
+// Authors: Justin Burns, Declan Gundrum, Ryan Erdmann, William Weis, Atessa Amjadi
+// Emails:  jdburns2@wisc.edu, djgundrum@wisc.edu, raerdmann@wisc.edu,
+// wzweis@wisc.edu, aamjadi@wisc.edu
+// Lecturer's Name: Debra Deppler
+//////////////////////////////////////////////////////////////////////////////////////////////////
 package QuizGenerator;
 
 import javafx.scene.Scene;
@@ -66,6 +76,7 @@ public class createNewQuestionScreen {
 
     // Creates the button that makes the question and returns to the previous screen
     Button makeQ = new Button("Create Question");
+    makeQ.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
     screen.setBottom(makeQ);
 
     // Displays the new screen
@@ -89,6 +100,7 @@ public class createNewQuestionScreen {
 
       // Creates a new button (will be added to the listview
       Button button = new Button(que);
+      button.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
       button.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;");
       button.setOnAction(event1 -> {
         // Creates a new instance of the this class

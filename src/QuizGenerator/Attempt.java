@@ -1,3 +1,13 @@
+// Title: RAWDJ Quiz Generator
+// Files: Attempt.java, Controller.java, createNewQuestionScreen.java, Main.java, makeQuiz.java,
+// Question.java, Quiz.java
+// Course: Comp Sci 400, Spring 2019
+//
+// Authors: Justin Burns, Declan Gundrum, Ryan Erdmann, William Weis, Atessa Amjadi
+// Emails:  jdburns2@wisc.edu, djgundrum@wisc.edu, raerdmann@wisc.edu,
+// wzweis@wisc.edu, aamjadi@wisc.edu
+// Lecturer's Name: Debra Deppler
+//////////////////////////////////////////////////////////////////////////////////////////////////
 package QuizGenerator;
 
 import javafx.scene.Scene;
@@ -51,6 +61,7 @@ public class Attempt {
     percentageHolder.getChildren().addAll(correct,attempts,percent);
     screen.setRight(percentageHolder);
     Button button = new Button("Return to Quiz");
+    button.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
 
     screen.setBottom(button);
 
