@@ -156,7 +156,7 @@ public class Main extends Application {
       fileChooser.getExtensionFilters().add(extensionFilter);
       File file = fileChooser.showSaveDialog(primaryStage);
       if (file == null)
-        file = new File("./CURRENT.json");
+        return;
       FileWriter fw = new FileWriter(file);
 
       Collection<Quiz> quizzers = quizHolder.values();
@@ -204,7 +204,7 @@ public class Main extends Application {
       fileChooser.getExtensionFilters().add(extensionFilter);
       File file = fileChooser.showOpenDialog(primaryStage);
       if (file == null)
-        file = new File("./CURRENT.json");
+        return;
 
       FileReader fr = new FileReader(file);
       Object o = new JSONParser().parse(fr);
