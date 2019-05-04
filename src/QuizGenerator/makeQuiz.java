@@ -50,6 +50,7 @@ public class makeQuiz {
       Quiz quiz = new Quiz(temp);
       //creates a new quiz button for the new quiz
       Button qb = new Button(temp);
+      qb.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;");
       //adds the quiz to the hashmap
       quizHolder.put(temp, quiz);
       quizzes.getItems().add(qb);
