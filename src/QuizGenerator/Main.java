@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -101,13 +100,9 @@ public class Main extends Application {
       makeQuiz.show(primaryStage, currentScene, quizzes, quizHolder);
     });
 
-    loadFile.setOnAction(event -> {
-      loadHelper(fileChooser, primaryStage);
-    });
+    loadFile.setOnAction(event -> loadHelper(fileChooser, primaryStage));
 
-    saveFile.setOnAction(event -> {
-      saveHelper(fileChooser, primaryStage);
-    });
+    saveFile.setOnAction(event -> saveHelper(fileChooser, primaryStage));
   }
 
   private void closeHelper(FileChooser fileChooser, Stage primaryStage){
@@ -158,7 +153,7 @@ public class Main extends Application {
       File init = new File(".");
       fileChooser.setInitialDirectory(init);
       fileChooser.getExtensionFilters().add(extensionFilter);
-      File file = fileChooser.showOpenDialog(primaryStage);
+      File file = fileChooser.showSaveDialog(primaryStage);
       if (file == null)
         file = new File("./CURRENT.json");
       FileWriter fw = new FileWriter(file);
