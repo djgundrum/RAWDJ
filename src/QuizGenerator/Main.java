@@ -1,3 +1,4 @@
+//////////////
 package QuizGenerator;
 
 import javafx.application.Application;
@@ -5,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -20,7 +20,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
 import java.util.LinkedList;
-
+//atessa
 public class Main extends Application {
 
   BorderPane screen = new BorderPane();
@@ -53,13 +53,16 @@ public class Main extends Application {
     // This is the button on the top below the title string
     Button addNewQuiz = new Button("Add New Quiz");
 
+    //This is a button to exit
+    Button exit = new Button("Exit");
+
     // This is a button so that the user can load a previous quiz generator file
     Button loadFile = new Button("Load File");
 
     /// This is a button to save all the current quizzes that the user has made
     Button saveFile = new Button("Save File");
 
-    topper.getChildren().addAll(addNewQuiz, loadFile, saveFile);
+    topper.getChildren().addAll(addNewQuiz, loadFile, saveFile, exit);
 
     // Screen is the main border pane for this scene
     screen.setStyle("-fx-background-color: #E0FFFF;");
@@ -67,6 +70,7 @@ public class Main extends Application {
     // Quizzes is the listview in the middle of the screen
     quizzes.setStyle("-fx-background-color: #E0FFFF;");
     addNewQuiz.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
+    exit.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
     loadFile.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
     saveFile.setStyle("-fx-background-color: #00CED1;-fx-border-color: black;");
     title.setStyle("-fx-background-color: #E0FFFF;");
@@ -83,6 +87,13 @@ public class Main extends Application {
     // Shows the current screen
     primaryStage.show();
 
+    //lets user exit
+    exit.setOnAction(event -> {
+      closeHelper(fileChooser, primaryStage);
+    });
+
+
+
     // Sets what the addquiz button will do
     // Calls the makeQuiz class
     addNewQuiz.setOnAction(event -> {
@@ -90,13 +101,48 @@ public class Main extends Application {
       makeQuiz.show(primaryStage, currentScene, quizzes, quizHolder);
     });
 
-    loadFile.setOnAction(event -> {
-      loadHelper(fileChooser, primaryStage);
+    loadFile.setOnAction(event -> loadHelper(fileChooser, primaryStage));
+
+    saveFile.setOnAction(event -> saveHelper(fileChooser, primaryStage));
+  }
+
+  private void closeHelper(FileChooser fileChooser, Stage primaryStage){
+
+    Stage stage = new Stage();
+
+    BorderPane screen = new BorderPane();
+    Scene currentScene = new Scene(screen, 400, 200);
+
+    // Sets the string at the top of the current scene
+    Label title = new Label("Do you want to exit");
+
+    screen.setTop(title);
+
+    HBox box = new HBox();
+
+    Button save = new Button("Save and exit");
+    Button noSave = new Button("Exit without saving");
+
+    box.getChildren().addAll(save, noSave);
+    screen.setCenter(box);
+
+    save.setOnAction(event -> {
+      saveHelper(fileChooser, primaryStage);
+      stage.close();
+      primaryStage.close();
     });
 
-    saveFile.setOnAction(event -> {
-      saveHelper(fileChooser, primaryStage);
+    noSave.setOnAction(event -> {
+      stage.close();
+      primaryStage.close();
     });
+
+    stage.setScene(currentScene);
+
+    stage.show();
+
+
+
   }
 
   @SuppressWarnings("unchecked")
@@ -108,7 +154,7 @@ public class Main extends Application {
       File init = new File(".");
       fileChooser.setInitialDirectory(init);
       fileChooser.getExtensionFilters().add(extensionFilter);
-      File file = fileChooser.showOpenDialog(primaryStage);
+      File file = fileChooser.showSaveDialog(primaryStage);
       if (file == null)
         file = new File("./CURRENT.json");
       FileWriter fw = new FileWriter(file);
@@ -187,7 +233,7 @@ public class Main extends Application {
         this.quizzes.getItems().add(b1);
         b1.setOnAction(event -> {
           Quiz ternary = quizHolder.get(current.name);
-          ternary.show(primaryStage, currentScene);
+          ternary.show(primaryStage, currentScene, quizHolder, this.quizzes);
         });
       }
 

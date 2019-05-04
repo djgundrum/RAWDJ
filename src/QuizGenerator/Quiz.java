@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Quiz {
@@ -44,7 +45,7 @@ public class Quiz {
    * @param primaryStage // Window that is being displayed to the user
    * @param original // Scene of the window that was previously displayed
    */
-  public void show(Stage primaryStage, Scene original) {
+  public void show(Stage primaryStage, Scene original, HashMap<String, Quiz> quizHolder, ListView<Button> quizzes) {
     this.pStage = primaryStage;
 
 
@@ -71,9 +72,11 @@ public class Quiz {
     // Makes button so that the user can return to the list of quizzes from first screen
     Button returner = new Button("Return to Quizzes");
 
+    Button delete = new Button("Remove Quiz");
+
     // Makes the structure to hold all the buttons on the right side of the screen
     VBox right = new VBox();
-    right.getChildren().addAll(makeQ, stopQuiz, returner);
+    right.getChildren().addAll(makeQ, stopQuiz, returner, delete);
     screen.setRight(right);
 
     // Sets the style and where the HBox of all the attempts will be
@@ -96,6 +99,17 @@ public class Quiz {
     });
 
     returner.setOnAction(event -> {
+      primaryStage.setScene(original);
+      primaryStage.show();
+    });
+
+    delete.setOnAction(event -> {
+      quizHolder.remove(this.name);
+      for (Button b : quizzes.getItems()) {
+        if (b.getText().equals(this.name)) {
+          quizzes.getItems().remove(b);
+        }
+      }
       primaryStage.setScene(original);
       primaryStage.show();
     });
