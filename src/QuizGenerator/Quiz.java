@@ -23,6 +23,9 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+/**
+ * This class is the screen that shows a quiz
+ */
 public class Quiz {
 
   // Keeps track of all the created questions, will be used when quiz is taken

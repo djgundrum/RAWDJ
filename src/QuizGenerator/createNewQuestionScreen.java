@@ -21,6 +21,9 @@ import javafx.stage.Stage;
 import java.util.LinkedList;
 
 
+/**
+ * This class is the screen that allows you to create a new question
+ */
 public class createNewQuestionScreen {
 
 

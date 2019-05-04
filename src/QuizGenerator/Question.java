@@ -22,6 +22,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.Random;
 
+/**
+ * This class is the screen that displays a question
+ */
 public class Question {
 //creates public variables for each of the test items
   public String question;
