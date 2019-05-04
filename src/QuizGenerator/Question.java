@@ -17,13 +17,13 @@ public class Question {
   public String answer2;
   public String answer3;
 
-  /*
+  /**
   Constructor for the question class so that the questions are possible
-  @param String q is the question for the question
-  @param String c is the correct answer for the question
-  @param String a1 is one of the answers that isn't correct
-  @param String a2 is another answer that isn't correct
-  @param String a3 is another answer that isn't correct
+  @param  q is the question for the question
+  @param  c is the correct answer for the question
+  @param  a1 is one of the answers that isn't correct
+  @param  a2 is another answer that isn't correct
+  @param  a3 is another answer that isn't correct
    */
   public Question(String q, String c, String a1, String a2, String a3) {
     this.question = q;
@@ -33,7 +33,7 @@ public class Question {
     this.answer3 = a3;
   }
 //quiz to show each question
-  /*
+  /**
   @param primaryStage is the primaryStage for javafx to use
   @param original is the Scene that will be used for displaying everything
   @param attempt is a double array of strings that holds the attempts from the user taking the quiz

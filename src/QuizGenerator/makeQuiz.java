@@ -15,7 +15,7 @@ public class makeQuiz {
 
 
 
-/*
+/**
 @param primaryStage is the primaryStage that will be used to display the scene that the user will see
 @param original is the scene that has all the objects on it for the user to interact with
 @param quizzes is a structure of the quizzes that are available for the user to do
@@ -64,8 +64,12 @@ public class makeQuiz {
     });
   }
 
+  /**
+   * A Helper method to help put the question into list view
+   * @param question
+   * @param index
+   */
   public void putInListViewHelper(Question question, int index) {
     createNewQuestionScreen the = new createNewQuestionScreen();
-    //the.show(question, index, this.pStage, questions, questionsButton, newScene);
   }
 }
