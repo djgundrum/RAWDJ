@@ -93,7 +93,7 @@ public class Quiz {
       the.show(null, 0, primaryStage, questions, questionsButton, newScene);
     });
 
-    // Sets wha the take quiz button will do
+    // Sets wha the take quiz button will do here you go
     stopQuiz.setOnAction(event -> {
       takeQuiz(primaryStage, newScene, this.bottom);
     });
