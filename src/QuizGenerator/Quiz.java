@@ -108,6 +108,7 @@ public class Quiz {
       for (Button b : quizzes.getItems()) {
         if (b.getText().equals(this.name)) {
           quizzes.getItems().remove(b);
+          break;
         }
       }
       primaryStage.setScene(original);
