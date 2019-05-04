@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Created-By: Justin Burns, Declan Gundrum, Ryan Erdmann, Atessa Amjadi, William Weis
+Class-Path: json-simple-1.1.1.jar
+Main-Class: application.Main
+
