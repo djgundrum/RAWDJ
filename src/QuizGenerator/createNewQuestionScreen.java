@@ -48,7 +48,7 @@ public class createNewQuestionScreen {
     TextField a3 = new TextField();
 
     // Will enter if the user wants to change a previously existing question
-    // Sets all the open text boxes to what the user originally had in them
+    // Sets all the open text boxes to what the user originally had in them eh
     if (prequestion != null) {
       q.setText(prequestion.question);
       correctAnswer.setText(prequestion.correctAnswer);
