@@ -182,7 +182,7 @@ public class Main extends Application {
         this.quizzes.getItems().add(b1);
         b1.setOnAction(event -> {
           Quiz ternary = quizHolder.get(current.name);
-          ternary.show(primaryStage, currentScene);
+          ternary.show(primaryStage, currentScene, quizHolder, this.quizzes);
         });
       }
 

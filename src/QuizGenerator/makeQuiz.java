@@ -56,7 +56,7 @@ public class makeQuiz {
       //if the user clicks on that then it creates the new quiz
       qb.setOnAction(eventS -> {
         Quiz ternary = quizHolder.get(temp);
-        ternary.show(primaryStage, original);
+        ternary.show(primaryStage, original, quizHolder, quizzes);
       });
       primaryStage.setScene(original);
       primaryStage.show();
