@@ -42,7 +42,7 @@ public class Quiz {
 
   private Scene newScene;
 
-  /*
+  /**
   Default constructor that assigns class variables
    */
   public Quiz(String name) {

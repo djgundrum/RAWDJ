@@ -20,10 +20,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * The Attempt class, which calculates the attempts of the Quizzes
+ */
 public class Attempt {
-
+  //the name of the attempt
   public String name;
 
+  /**
+   * Constructor for Attempt
+   * @param name of the attempt
+   */
   public Attempt(String name) {
     this.name = name;
   }
@@ -31,11 +38,11 @@ public class Attempt {
   /**
    * Shows the attempt screen when called so you know
    * the attempts that occurred as well as the score
-   * @param primaryStage
-   * @param original
-   * @param question
-   * @param ca
-   * @param ya
+   * @param primaryStage the primarystage
+   * @param original scene
+   * @param question string array of questions
+   * @param ca string array of correct answers
+   * @param ya string array of your answers
    */
   public void show(Stage primaryStage, Scene original, String[] question, String[] ca,
                    String[] ya) {
@@ -57,6 +64,7 @@ public class Attempt {
     }
     Label correct = new Label("Questions correct: "+counter);
     Label attempts = new Label("Number of Questions: "+question.length);
+    //calculates the percent of correct to give you a score
     Label percent = new Label("Score: "+((double)counter/question.length*100));
     percentageHolder.getChildren().addAll(correct,attempts,percent);
     screen.setRight(percentageHolder);
